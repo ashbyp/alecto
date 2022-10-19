@@ -1,0 +1,5 @@
+{
+  "gate.io": {
+    "api_host": "https://api.gateio.ws/api/v4"
+  }
+}
