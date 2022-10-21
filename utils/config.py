@@ -41,4 +41,5 @@ def get() -> dict:
 
 
 if __name__ == '__main__':
-    print(get())
+    import pprint
+    pprint.pprint(get())
