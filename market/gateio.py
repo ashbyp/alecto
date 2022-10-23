@@ -1,4 +1,4 @@
-from gate_api import ApiClient, Configuration, SpotApi, Order
+from gate_api import ApiClient, Configuration, SpotApi, Order, WalletApi
 from gate_api.models.ticker import Ticker
 
 
@@ -9,7 +9,18 @@ class GateIO:
             secret=conf['private']['gate.io']['api_secret'],
             host=conf['public']['gate.io']['api_host']
         )
-        self.spot_api = SpotApi(ApiClient(self.config))
+        client = ApiClient(self.config)
+        self.spot_api = SpotApi(client)
+        self.wallet_api = WalletApi(client)
+
+    def get_spot_accounts(self):
+        return self.spot_api.list_spot_accounts()
+
+    def get_trades(self, ccy_pair:str):
+        return self.spot_api.list_trades(ccy_pair)
+
+    def get_ccy_list(self):
+        return self.spot_api.list_currencies()
 
     def get_all_tickers(self) -> list[Ticker]:
         tickers = self.spot_api.list_tickers()
@@ -38,6 +49,12 @@ class GateIO:
     def cancel_all_orders(self, ccy_pair: str) -> None:
         self.spot_api.cancel_orders(ccy_pair)
 
+    def get_balance(self):
+        return self.wallet_api.get_total_balance()
+
+    def get_sub_account_balances(self):
+        return self.wallet_api.list_sub_account_balances()
+
 
 def main():
     from utils import config
@@ -56,6 +73,19 @@ def main():
     print(order)
 
     api.cancel_all_orders(ccy_pair)
+
+    print([ccy.currency for ccy in api.get_ccy_list()])
+
+    print(api.get_balance())
+    print(api.get_sub_account_balances())
+
+    trades = api.get_trades('VRA_USDT')
+    print(f'Num trades: {len(trades)}')
+    print(f'Sum buy: {sum(float(x.amount) for x in trades if x.side=="buy")}')
+    print(f'Sum sell: {sum(float(x.amount) for x in trades if x.side == "sell")}')
+
+    for account in api.get_spot_accounts():
+        print(account)
 
 
 if __name__ == '__main__':
