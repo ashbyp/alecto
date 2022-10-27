@@ -4,5 +4,8 @@
   },
   "coinmarketcap.pro": {
     "api_host": "https://pro-api.coinmarketcap.com/v1"
+  },
+  "binance": {
+    "api_host": "https://api.binance.com"
   }
 }
