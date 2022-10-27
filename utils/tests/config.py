@@ -8,6 +8,6 @@ class ConfigTest(unittest.TestCase):
         conf = config.get()
         self.assertTrue('public' in conf)
         self.assertTrue('private' in conf)
-        self.assertEqual(conf['public']['gate.io']['api_host'], 'https://api.gateio.ws/api/v4')
+        self.assertEqual(conf['public']['gate_api.io']['api_host'], 'https://api.gateio.ws/api/v4')
 
 

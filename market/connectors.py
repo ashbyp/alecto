@@ -1,29 +1,31 @@
-import pprint
-from market.gateioapi import GateIO
-from market.coinmarketcapproapi import CoinmarketcapPRO
 from market.binanceapi import Binance
+from market.coinmarketcapproapi import CoinmarketcapPRO
+from market.gateioapi import GateIO
 from utils import config
 
 conf = config.get()
-gate = GateIO(conf)
-coin = CoinmarketcapPRO(conf)
-bin = Binance(conf)
+gate_api = GateIO(conf)
+coin_api = CoinmarketcapPRO(conf)
+bin_api = Binance(conf)
 
 
 def print_last_price(ccy_pair: str) -> None:
-    g = gate.get_last_price(ccy_pair)
-    c = coin.get_last_price(ccy_pair)
-    b = bin.get_last_price(ccy_pair.replace('_', ''))
-    print(f'{ccy_pair}: gate={g}, coin={c}, binance={b}')
+    g = gate_api.get_last_price(ccy_pair)
+    c = coin_api.get_last_price(ccy_pair)
+    b = bin_api.get_last_price(ccy_pair.replace('_', ''))
+
+    print(type(g), type(c), type(b))
+
+    print(f'{ccy_pair}: gate_api={g}, coin_api={c}, binance={b}')
 
 
 def print_ticker(ccy_pair: str) -> None:
     print('GATE')
-    print(gate.get_ticker(ccy_pair))
+    print(gate_api.get_ticker(ccy_pair))
     print('COIN')
-    print(coin.get_ticker(ccy_pair))
+    print(coin_api.get_ticker(ccy_pair))
     print('BINANCE')
-    print(bin.get_ticker(ccy_pair.replace('_', '')))
+    print(bin_api.get_ticker(ccy_pair.replace('_', '')))
 
 
 def main():
