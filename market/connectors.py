@@ -1,6 +1,6 @@
-from market.binanceapi import Binance
-from market.coinmarketcapproapi import CoinmarketcapPRO
-from market.gateioapi import GateIO
+from market.providers.binanceapi import Binance
+from market.providers.coinmarketcapproapi import CoinmarketcapPRO
+from market.providers.gateioapi import GateIO
 from utils import config
 
 conf = config.get()
@@ -14,7 +14,7 @@ def print_last_price(ccy_pair: str) -> None:
     c = coin_api.get_last_price(ccy_pair)
     b = bin_api.get_last_price(ccy_pair.replace('_', ''))
 
-    print(type(g), type(c), type(b))
+    # print(type(g), type(c), type(b))
 
     print(f'{ccy_pair}: gate_api={g}, coin_api={c}, binance={b}')
 

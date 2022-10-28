@@ -1,3 +1,5 @@
+from typing import Optional
+from market.types import Ticker
 from binance import Client
 
 
@@ -6,6 +8,28 @@ class Binance:
         self.client = Client(
             api_key=conf['private']['binance']['api_key'],
             api_secret=conf['private']['binance']['api_secret'])
+
+
+    def get_last_price(self, ccy_pair: str) -> float:
+        ...
+
+    def get_last_prices(self, ccy_pairs: list[str]) -> dict[str, float]:
+        ...
+
+    def get_all_last_prices(self) -> dict[str, float]:
+        ...
+
+    def get_ticker(self, ccy_pair: str) -> Optional[Ticker]:
+        ...
+
+    def get_tickers(self, ccy_pair: list[str]) -> Optional[dict[str, Ticker]]:
+        ...
+
+    def get_all_tickers(self) -> Optional[dict[str, Ticker]]:
+        ...
+
+
+
 
     def get_all_tickers(self) -> list[dict[str, str]]:
         tickers = self.client.get_all_tickers()
