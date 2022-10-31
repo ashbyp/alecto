@@ -7,7 +7,7 @@ class CoinmarketcapPRO:
     def __init__(self, conf: dict) -> None:
         headers = {
             'Accepts': 'application/json',
-            'X-CMC_PRO_API_KEY': '0c95fd63-2634-4636-8498-8c67f2378ad7',
+            'X-CMC_PRO_API_KEY': conf['private']['coinmarketcap.pro']['api_key'],
         }
         self.session = Session()
         self.session.headers.update(headers)
