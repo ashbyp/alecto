@@ -22,3 +22,8 @@ ujson==5.5.0
 urllib3==1.26.12
 websockets==10.4
 yarl==1.8.1
+
+setuptools~=65.5.1
+pandas~=2.0.3
+numpy~=1.25.2
+yfinance~=0.2.27
